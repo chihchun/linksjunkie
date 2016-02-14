@@ -158,7 +158,7 @@ function contextMenuOnClick(format) {
             default: format,
         }, function() {
             // console.log("saving new default foramt: " + format);
-            if(tab.url.indexOf("chrome:") != 0)
+            if(tab.url.indexOf("chrome") != 0)
                 chrome.tabs.executeScript(tab.id, {file: "script.js"});
         });
     }
@@ -169,7 +169,7 @@ function contentMenuCopyTabsOnClick(info, tab) {
         var buf = "";
         getFormat(function(format) {
             tabs.forEach(function(tab, index) {
-                if(tab.url.indexOf("chrome:") != 0) {
+                if(tab.url.indexOf("chrome") != 0) {
                     // console.log(tab.title, tab.url);
                     buf += parseText(format, {"text": tab.title, "url": tab.url}) + "\n";
                 }

@@ -8,7 +8,7 @@ chrome.commands.onCommand.addListener(function(command) {
       // A window can only have one active tab at a time, so the array consists of
       // exactly one tab.
       var tab = tabs[0];
-      if(tab.url.indexOf("chrome:") != 0) {
+      if(tab.url.indexOf("chrome") != 0) {
         chrome.tabs.executeScript(tab.id, {file: "script.js"});
       }
     });
