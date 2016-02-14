@@ -1,0 +1,33 @@
+{
+  "manifest_version": 2,
+
+  "name": "LinksJunkie",
+  "description": "",
+  "version": "0.1",
+
+  "background": {
+      "persistent": true,
+      "scripts": [ "common.js", "background.js" ]
+  },
+  "options_ui": {
+      "page": "options.html",
+      "chrome_style": true,
+      "open_in_tab": true
+  },
+
+  "commands": {
+      "toggle-copy": {
+          "suggested_key": { "default": "Ctrl+C" },
+          "description": "Copy urls"
+      }
+  },
+
+  "permissions": [
+    "activeTab",
+    "clipboardWrite",
+    "contextMenus",
+    "notifications",
+    "tabs",
+    "storage"
+  ]
+}
