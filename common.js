@@ -151,15 +151,40 @@ DateExt = function (date) {
     };
 };
 
+function inBlcklisted(url) {
+    var blocklist = [ 
+        /^chrome/i,
+        /^https:\/\/mail.google.com/,
+    ];
+
+    var ret = false;
+    blocklist.forEach(function(pattern, index) {
+        if(pattern.test(url)) {
+            ret = true;
+        }
+    });
+    return ret;
+}
+
+function toggleCopy(tab) {
+    if(inBlcklisted(tab.url)) {
+        var linkdata = {};
+        linkdata.title = tab.title;
+        linkdata.text = tab.title;
+        linkdata.url = tab.url;
+        chrome.runtime.sendMessage({action: "copyurl", linkdata: linkdata});
+    } else {
+        chrome.tabs.executeScript(tab.id, {file: "script.js"});
+    }
+}
+
 function contextMenuOnClick(format) {
     return function (info, tab) {
         // set default format.
         chrome.storage.sync.set({
             default: format,
         }, function() {
-            // console.log("saving new default foramt: " + format);
-            if(tab.url.indexOf("chrome") != 0)
-                chrome.tabs.executeScript(tab.id, {file: "script.js"});
+            toggleCopy(tab);
         });
     }
 }
