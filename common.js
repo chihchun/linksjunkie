@@ -155,6 +155,7 @@ function inBlcklisted(url) {
     var blocklist = [ 
         /^chrome/i,
         /^https:\/\/mail.google.com/,
+        /^https:\/\/chrome.google.com\/webstore/
     ];
 
     var ret = false;
