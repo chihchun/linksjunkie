@@ -1,9 +1,10 @@
-var interval = setInterval(function(){
-    clearInterval(interval);
+setTimeout(function(){
+    // clearInterval(interval);
     var linkdata = {};
     linkdata.title = window.document.title;
     linkdata.text = window.document.title;
     linkdata.url = window.location.href;
+    console.log("interval");
 
     var sel = window.getSelection().toString();
     if(sel != '')
@@ -14,4 +15,4 @@ var interval = setInterval(function(){
         linkdata.url = canonical.href;
 
     chrome.runtime.sendMessage({action: "copyurl", linkdata: linkdata});
-},1500);
+},100);
