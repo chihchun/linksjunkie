@@ -151,19 +151,6 @@ DateExt = function (date) {
     };
 };
 
-function inCanonicalBlocklist (url) {
-    var blocklist = [ 
-        /^https:\/\/mail.google.com/
-    ];
-
-    var ret = false;
-    blocklist.forEach(function(pattern, index) {
-        if(pattern.test(url)) {
-            ret = true;
-        }
-    });
-    return ret;
-}
 
 function inBlocklist(url) {
     var blocklist = [ 

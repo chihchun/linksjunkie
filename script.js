@@ -1,3 +1,16 @@
+function inCanonicalBlocklist (url) {
+    var blocklist = [
+        /^https:\/\/mail.google.com/i
+    ];
+
+    var ret = false;
+    blocklist.forEach(function(pattern, index) {
+        if(pattern.test(url)) {
+            ret = true;
+        }
+    });
+    return ret;
+}
 
 setTimeout(function(){
     var linkdata = {};
@@ -11,7 +24,7 @@ setTimeout(function(){
 
     if(!inCanonicalBlocklist(linkdata.url)) {
         var canonical = window.document.querySelector('link[rel=canonical],link[rel=shorturl],link[rel=shortlink]');
-        if (canonical) 
+        if (canonical)
             linkdata.url = canonical.href;
     }
 
