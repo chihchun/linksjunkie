@@ -17,7 +17,7 @@
 
   "commands": {
       "toggle-copy": {
-          "suggested_key": { "default": "Ctrl+C" },
+          "suggested_key": { "default": "Ctrl+B" },
           "description": "Copy urls"
       }
   },
