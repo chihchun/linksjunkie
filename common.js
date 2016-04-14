@@ -151,10 +151,23 @@ DateExt = function (date) {
     };
 };
 
-function inBlocklisted(url) {
+function inCanonicalBlocklist (url) {
+    var blocklist = [ 
+        /^https:\/\/mail.google.com/
+    ];
+
+    var ret = false;
+    blocklist.forEach(function(pattern, index) {
+        if(pattern.test(url)) {
+            ret = true;
+        }
+    });
+    return ret;
+}
+
+function inBlocklist(url) {
     var blocklist = [ 
         /^chrome/i,
-        /^https:\/\/mail.google.com/,
         /^https:\/\/chrome.google.com\/webstore/
     ];
 
@@ -169,7 +182,7 @@ function inBlocklisted(url) {
 
 function toggleCopy(tab) {
 
-    if(inBlocklisted(tab.url)) {
+    if(inBlocklist(tab.url)) {
         // The blocked web site does not allowed to inject script or sending messages.
         var linkdata = {};
         linkdata.title = tab.title;
@@ -202,7 +215,6 @@ function contentMenuCopyTabsOnClick(info, tab) {
         getFormat(function(format) {
             tabs.forEach(function(tab, index) {
                 if(tab.url.indexOf("chrome") != 0) {
-                    // console.log(tab.title, tab.url);
                     buf += parseText(format, {"text": tab.title, "url": tab.url}) + "\n";
                 }
             });

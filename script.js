@@ -1,21 +1,22 @@
+
 setTimeout(function(){
-    // clearInterval(interval);
     var linkdata = {};
     linkdata.title = window.document.title;
     linkdata.text = window.document.title;
     linkdata.url = window.location.href;
-    console.log("interval");
 
     var sel = window.getSelection().toString();
     if(sel != '')
         linkdata.text = sel;
 
-    var canonical = window.document.querySelector('link[rel=canonical],link[rel=shorturl],link[rel=shortlink]');
-    if (canonical)
-        linkdata.url = canonical.href;
+    if(!inCanonicalBlocklist(linkdata.url)) {
+        var canonical = window.document.querySelector('link[rel=canonical],link[rel=shorturl],link[rel=shortlink]');
+        if (canonical) 
+            linkdata.url = canonical.href;
+    }
 
     chrome.runtime.sendMessage({action: "copyurl", linkdata: linkdata},
-            function(response) {
+                function(response) {
                 var lastError = chrome.runtime.lastError;
                 if (lastError) {
                     console.log(lastError.message);

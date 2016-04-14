@@ -16,7 +16,6 @@ chrome.commands.onCommand.addListener(function(command) {
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     if (request.action === 'copyurl') {
-      // console.log(request.linkdata);
       getFormat(function(format) {
         var buf = parseText(format, request.linkdata);
         copyToClipBoard(buf);
