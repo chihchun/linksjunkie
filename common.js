@@ -151,7 +151,7 @@ DateExt = function (date) {
     };
 };
 
-function inBlcklisted(url) {
+function inBlocklisted(url) {
     var blocklist = [ 
         /^chrome/i,
         /^https:\/\/mail.google.com/,
@@ -168,12 +168,18 @@ function inBlcklisted(url) {
 }
 
 function toggleCopy(tab) {
-    if(inBlcklisted(tab.url)) {
+
+    if(inBlocklisted(tab.url)) {
+        // The blocked web site does not allowed to inject script or sending messages.
         var linkdata = {};
         linkdata.title = tab.title;
         linkdata.text = tab.title;
         linkdata.url = tab.url;
-        chrome.runtime.sendMessage({action: "copyurl", linkdata: linkdata});
+        getFormat(function(format) {
+            var buf = parseText(format, linkdata);
+            copyToClipBoard(buf);
+            notify(buf);
+        });
     } else {
         chrome.tabs.executeScript(tab.id, {file: "script.js"});
     }
