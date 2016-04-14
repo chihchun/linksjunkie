@@ -14,5 +14,11 @@ setTimeout(function(){
     if (canonical)
         linkdata.url = canonical.href;
 
-    chrome.runtime.sendMessage({action: "copyurl", linkdata: linkdata});
+    chrome.runtime.sendMessage({action: "copyurl", linkdata: linkdata},
+            function(response) {
+                var lastError = chrome.runtime.lastError;
+                if (lastError) {
+                    console.log(lastError.message);
+                }
+            });
 },100);
