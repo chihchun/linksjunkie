@@ -11,6 +11,11 @@ function getDefaultShortcuts()
         name      : "Markdown",
 	    format    : '[%text%] (%url%)',
 	},
+    {
+	    enable    : true,
+        name      : "Markdown Refs",
+	    format    : '[x]: %url% "%text%"',
+	},
 	{
 	    enable    : false,
         name      : "HTML",
