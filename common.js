@@ -3,8 +3,13 @@ function getDefaultShortcuts()
     return [
 	{
 	    enable    : true,
-        name      : "Plain Text",
+        name      : "Plain Text as Item",
 	    format    : '* %text% - %url%',
+	},
+	{
+	    enable    : true,
+        name      : "Plain Text",
+	    format    : '%text% - %url%',
 	},
     {
 	    enable    : true,
