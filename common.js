@@ -35,7 +35,13 @@ function getDefaultShortcuts()
 	    enable    : false,
         name      : "hyperlink for Google Sheet",
 	    format    : '=hyperlink("%url%", "%text%")',
-	}];
+	},
+	{
+	    enable    : false,
+        name      : "TODO list",
+	    format    : '[ ] %text% - %url%',
+	}
+    ];
 }
 
 function getOptions (callback) {
