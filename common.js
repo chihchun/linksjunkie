@@ -184,7 +184,6 @@ function inBlocklist(url) {
 }
 
 function toggleCopy(tab) {
-
     if(inBlocklist(tab.url)) {
         // The blocked web site does not allowed to inject script or sending messages.
         var linkdata = {};
@@ -206,19 +205,19 @@ function contextMenuOnClick(format) {
         // set default format.
         chrome.storage.sync.set({
             default: format,
-        }, function() {
+        }, function () {
             toggleCopy(tab);
         });
     }
 }
 
 function contentMenuCopyTabsOnClick(info, tab) {
-    chrome.tabs.query({}, function(tabs) {
+    chrome.tabs.query({ currentWindow: true }, function (tabs) {
         var buf = "";
         getFormat(function(format) {
-            tabs.forEach(function(tab, index) {
-                if(tab.url.indexOf("chrome") != 0) {
-                    buf += parseText(format, {"text": tab.title, "url": tab.url}) + "\n";
+            tabs.forEach(function (tab, index) {
+                if (tab.url.indexOf("chrome") != 0) {
+                    buf += parseText(format, { "text": tab.title, "url": tab.url }) + "\n";
                 }
             });
             copyToClipBoard(buf);
