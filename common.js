@@ -171,7 +171,8 @@ DateExt = function (date) {
 function inBlocklist(url) {
     var blocklist = [ 
         /^chrome/i,
-        /^https:\/\/chrome.google.com\/webstore/
+        /^https:\/\/chrome.google.com\/webstore/,
+        /^https:\/\/www.youtube.com/
     ];
 
     var ret = false;
