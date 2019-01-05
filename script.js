@@ -1,7 +1,9 @@
 function inCanonicalBlocklist (url) {
     var blocklist = [
         /^https:\/\/mail.google.com/i,
-        /^https:\/\/www.draw.io/i
+        /^https:\/\/www.draw.io/i,
+        /^https:\/\/www.goodreads.com/i,
+        /^https:\/\/www.tw.kayak.com/i
     ];
 
     var ret = false;
