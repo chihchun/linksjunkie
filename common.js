@@ -93,8 +93,11 @@ function notify(message)
 {
     // Web Notifications https://www.w3.org/TR/notifications/
     notification = new Notification("Copied", { 'body': message });
-    // FIXME
-    // notification.onshow = function() { setTimeout(notification.close, 1000) }
+    notification.onshow = function() { 
+        setTimeout(function() {
+            notification.close();
+        }, 1000) 
+    }
 }
 
 function cleanURL(urlstr) 
