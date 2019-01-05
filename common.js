@@ -93,14 +93,42 @@ function notify(message)
 {
     // Web Notifications https://www.w3.org/TR/notifications/
     notification = new Notification("Copied", { 'body': message });
-    notification.onshow = function() { setTimeout(notification.close, 1000) }
+    // FIXME
+    // notification.onshow = function() { setTimeout(notification.close, 1000) }
 }
 
+function cleanURL(urlstr) 
+{
+    url = new URL(urlstr);
+    let strippedSearch = url.search
+    .replace(/^\?/, '')
+    .split('&')
+    // taobao/alibaba https://www.zhihu.com/question/62813754
+    .filter(param => !/^spm=/.test(param))
+    // Facebook  Click Identifierhttp://thisinterestsme.com/facebook-fbclid-parameter/
+    .filter(param => !/^fbclid=/.test(param))
+    // google utm
+    .filter(param => !/^utm_/.test(param))
+    // Google Click Identifier- https://support.google.com/analytics/answer/1033981?hl=zh-Hant
+    .filter(param => !/^gclid=/.test(param))
+    // marketo
+    .filter(param => !/^mkt_tok=/.test(param))
+    // oreilly?
+    .filter(param => !/^imm_mid=/.test(param))
+    .join('&');
+
+    if (strippedSearch) {
+        strippedSearch = `?${strippedSearch}`;
+    }
+    url.search = strippedSearch;
+    return url.toString();
+}
 function parseText (format, linkdata) {
     r = format;
     r = r.replace("%text%", linkdata.text, "g");
     r = r.replace("%title%", linkdata.title, "g");
-    r = r.replace("%url%", linkdata.url, "g");
+
+    r = r.replace("%url%", cleanURL(linkdata.url), "g");
     // r = r.replace("%wikiname%", wikiname(linkdata.url), "g");
     r = r.replace("\n", " ", "g");
     r = parseDate(r, new DateExt(new Date()));
@@ -191,11 +219,20 @@ function toggleCopy(tab) {
         linkdata.title = tab.title;
         linkdata.text = tab.title;
         linkdata.url = tab.url;
+        chrome.runtime.sendMessage({action: "copyurl", linkdata: linkdata},
+                function(response) {
+                var lastError = chrome.runtime.lastError;
+                if (lastError) {
+                    console.log(lastError.message);
+                }
+            });
+        /*
         getFormat(function(format) {
             var buf = parseText(format, linkdata);
             copyToClipBoard(buf);
             notify(buf);
         });
+        */
     } else {
         chrome.tabs.executeScript(tab.id, {file: "script.js"});
     }
