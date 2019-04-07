@@ -202,8 +202,7 @@ DateExt = function (date) {
 function inBlocklist(url) {
     var blocklist = [ 
         /^chrome/i,
-        /^https:\/\/chrome.google.com\/webstore/,
-        /^https:\/\/www.youtube.com/
+        /^https:\/\/chrome.google.com\/webstore/
     ];
 
     var ret = false;
@@ -224,10 +223,10 @@ function toggleCopy(tab) {
         linkdata.url = tab.url;
         chrome.runtime.sendMessage({action: "copyurl", linkdata: linkdata},
                 function(response) {
-                var lastError = chrome.runtime.lastError;
-                if (lastError) {
-                    console.log(lastError.message);
-                }
+                    var lastError = chrome.runtime.lastError;
+                    if (lastError) {
+                        console.log(lastError.message);
+                    }
             });
         /*
         getFormat(function(format) {
