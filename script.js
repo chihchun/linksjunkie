@@ -4,7 +4,8 @@ function inCanonicalBlocklist (url) {
         /^https:\/\/www.draw.io/i,
         /^https:\/\/www.goodreads.com/i,
         /^https:\/\/www.tw.kayak.com/i,
-        /^https:\/\/www.fedex.com/i
+        /^https:\/\/www.fedex.com/i,
+        /^https:\/\/forum.snapcraft.io/i
     ];
 
     var ret = false;
