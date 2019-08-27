@@ -5,7 +5,8 @@ function inCanonicalBlocklist (url) {
         /^https:\/\/www.goodreads.com/i,
         /^https:\/\/www.tw.kayak.com/i,
         /^https:\/\/www.fedex.com/i,
-        /^https:\/\/forum.snapcraft.io/i
+        /^https:\/\/forum.snapcraft.io/i,
+        /^https:\/\/store.neosmartpen.com/i
     ];
 
     var ret = false;
