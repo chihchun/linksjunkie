@@ -1,4 +1,6 @@
 function inCanonicalBlocklist (url) {
+    // some website does not provide the right canonical url, we need to ignore them.
+    // https://en.wikipedia.org/wiki/Canonical_link_element
     var blocklist = [
         /^https:\/\/mail.google.com/i,
         /^https:\/\/www.draw.io/i,
@@ -6,7 +8,8 @@ function inCanonicalBlocklist (url) {
         /^https:\/\/www.tw.kayak.com/i,
         /^https:\/\/www.fedex.com/i,
         /^https:\/\/forum.snapcraft.io/i,
-        /^https:\/\/store.neosmartpen.com/i
+        /^https:\/\/store.neosmartpen.com/i,
+        /^https:\/\/bugs.debian.org/i
     ];
 
     var ret = false;
